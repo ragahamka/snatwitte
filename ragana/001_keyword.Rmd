@@ -1,0 +1,56 @@
+---
+title: "Mengambil Tweet Berdasarkan Keyword"
+author: "Asep Miftahuddin"
+output: html_document
+---
+
+```{r}
+# Install library (Cukup Sekali Saja)
+install.packages("rtweet")
+```
+
+```{r}
+# Load library
+library(rtweet)
+```
+
+```{r}
+# Set Token
+token <- create_token(
+  app = "hamkaragana",
+  consumer_key = "WoD5QGIIXtR0jgEnR0woPgdTA",
+  consumer_secret = "gwrFeDERVsS8YzK33pTUXSPvMG3vGdBViNVBTpoXpywOrVZBeh",
+  access_token = "1323866871288877057-6YaRzQiLDuDzwQlXEUssNPzoIbeIPL",
+  access_secret = "lgQ1hiWNe59wx9ibgoURBFLnalCImHW8KmFeMFraTlXJE"
+)
+```
+
+```{r}
+# Tentukan Kata Kunci, Jumlah Tweet, dan Bahasa
+keyword <- "bahar"
+jumlahtweet <- 500
+bahasa <- "id"
+retweet <- TRUE
+```
+
+```{r}
+# Proses Pengumpulan Data Tweet 
+tweet_keyword <- search_tweets(keyword,
+  n = jumlahtweet,
+  include_rts = retweet,
+  type = "recent",
+  lang = bahasa,
+  retryonratelimit = FALSE
+)
+```
+
+```{r}
+# Simpan data tweet dengan format .csv
+write_as_csv(tweet_keyword,
+  "data/tweet-keyword.csv",
+  prepend_ids = TRUE,
+  na = "",
+  fileEncoding = "UTF-8"
+)
+```
+
